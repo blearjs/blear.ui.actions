@@ -43,7 +43,7 @@ var Actions = Popup.extend({
         var the = this;
 
         options = the[_options] = object.assign(true, {}, defaults, options);
-        the.Super({
+        Actions.parent(the, {
             openAnimation: options.openAnimation,
             closeAnimation: options.closeAnimation
         });
@@ -119,7 +119,7 @@ var Actions = Popup.extend({
         var the = this;
         var html = tpl.render({groups: the[_groups]});
 
-        the.Super.setHTML(html);
+        Actions.parent.setHTML(the, html);
 
         return the;
     },
@@ -134,7 +134,7 @@ var Actions = Popup.extend({
 
         callback = fun.noop(callback);
         callback = fun.bind(callback, the);
-        the.Super.destroy(callback);
+        Actions.parent.destroy(the, callback);
     }
 });
 var _options = Actions.sole();
