@@ -1,0 +1,8 @@
+<div class="dkui-actions">
+    <div class="dkui-actions-group" @for="i, group in groups">
+        <div @for="j, item in group" class="dkui-actions-group-item
+        dkui-actions-group-item_{{item.type}}
+        {{item.type == 'button' ? 'dkbtn dkbtn_' + item.status : ''}}
+        ">{{item.text}}</div>
+    </div>
+</div>
