@@ -1,17 +1,17 @@
-.dkui-actions {
+.blearui-actions {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto; }
-  .dkui-actions-group {
+  .blearui-actions-group {
     margin: 8px;
     border-radius: 4px;
     overflow: hidden; }
-    .dkui-actions-group-item {
+    .blearui-actions-group-item {
       position: relative;
       background: rgba(243, 243, 243, 0.95); }
-      .dkui-actions-group-item:last-child:after {
+      .blearui-actions-group-item:last-child:after {
         display: none; }
-      .dkui-actions-group-item:after {
+      .blearui-actions-group-item:after {
         content: '';
         position: absolute;
         left: 0;
@@ -26,17 +26,17 @@
         -webkit-transform-origin: 50% 100%;
         transform-origin: 50% 100%; }
         @media screen and (-webkit-min-device-pixel-ratio: 2) {
-          .dkui-actions-group-item:after {
+          .blearui-actions-group-item:after {
             -webkit-transform: scaleY(0.5);
             transform: scaleY(0.5); } }
         @media screen and (-webkit-min-device-pixel-ratio: 3) {
-          .dkui-actions-group-item:after {
+          .blearui-actions-group-item:after {
             -webkit-transform: scaleY(0.33);
             transform: scaleY(0.33); } }
-      .dkui-actions-group-item_button {
+      .blearui-actions-group-item_button {
         font-size: 20px;
         line-height: 2; }
-      .dkui-actions-group-item_text {
+      .blearui-actions-group-item_text {
         font-size: 13px;
         line-height: 1.3;
         min-height: 44px;
