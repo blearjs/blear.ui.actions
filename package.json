@@ -1,6 +1,6 @@
 {
   "name": "blear.ui.actions",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "操作面板弹出 UI",
   "scripts": {
     "live": "browser-sync start --config bs-config.js"
@@ -34,21 +34,20 @@
     "url": "https://github.com/blearjs/blear.ui.actions/issues"
   },
   "dependencies": {
+    "blear.classes.template": "1.x",
+    "blear.core.attribute": "1.x",
+    "blear.core.event": "1.x",
+    "blear.core.selector": "1.x",
     "blear.ui": "1.x",
     "blear.ui.popup": "1.x",
     "blear.utils.access": "1.x",
-    "blear.utils.object": "1.x",
-    "blear.utils.function": "1.x",
-    "blear.utils.number": "1.x",
     "blear.utils.array": "1.x",
-    "blear.classes.template": "1.x",
-    "blear.core.selector": "1.x",
-    "blear.core.event": "1.x",
-    "blear.core.attribute": "1.x"
+    "blear.utils.function": "^1.0.5",
+    "blear.utils.number": "1.x",
+    "blear.utils.object": "1.x",
+    "blear.utils.typeis": "^1.0.3"
   },
   "peerDependencies": {},
-  "devDependencies": {
-
-  },
+  "devDependencies": {},
   "license": "MIT"
 }

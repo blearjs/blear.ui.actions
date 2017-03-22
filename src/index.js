@@ -7,20 +7,22 @@
 
 'use strict';
 
-var UI =        require('blear.ui');
-var Popup =     require('blear.ui.popup');
-var access =    require('blear.utils.access');
-var object =    require('blear.utils.object');
-var fun =       require('blear.utils.function');
-var number =    require('blear.utils.number');
-var array =     require('blear.utils.array');
-var Template =  require('blear.classes.template');
-var selector =  require('blear.core.selector');
-var event =     require('blear.core.event');
+var UI = require('blear.ui');
+var Popup = require('blear.ui.popup');
+var access = require('blear.utils.access');
+var object = require('blear.utils.object');
+var fun = require('blear.utils.function');
+var number = require('blear.utils.number');
+var array = require('blear.utils.array');
+var typeis = require('blear.utils.typeis');
+var Template = require('blear.classes.template');
+var selector = require('blear.core.selector');
+var event = require('blear.core.event');
 var attribute = require('blear.core.attribute');
-var template =  require('./template.html', 'html');
+var template = require('./template.html', 'html');
 
 var namespace = UI.UI_CLASS + '-actions';
+var btnClass = '.' + namespace + '-group-item_button';
 var tpl = new Template(template);
 var defaults = {
     /**
@@ -48,19 +50,17 @@ var Actions = Popup.extend({
             closeAnimation: options.closeAnimation
         });
         the[_groups] = [];
-
+        the[_callbacksMap] = {};
 
         // init event
-        var className = '.' + namespace + '-group-item_button';
-        var btnEls = selector.query(className, the.getElement());
-        array.each(btnEls, function (index, el) {
-            attribute.data(el, 'index', index);
-        });
 
-        event.on(the.getElement(), 'click', className, function () {
+        event.on(the.getElement(), 'click', btnClass, function () {
             var el = this;
             var index = attribute.data(el, 'index');
+            var id = attribute.data(el, 'id');
+            var callback = the[_callbacksMap][id];
 
+            callback.call(the);
             the.emit('action', number.parseInt(index));
         });
     },
@@ -86,7 +86,7 @@ var Actions = Popup.extend({
     text: function (text) {
         var the = this;
         the[_lastButtons].push({
-            type: 'text',
+            category: 'text',
             text: text
         });
         return the;
@@ -95,16 +95,29 @@ var Actions = Popup.extend({
     /**
      * 增加一个按钮
      * @param text
-     * @param status
+     * @param [type]
+     * @param [callback]
      * @returns {Actions}
      */
-    button: function (text, status) {
+    button: function (text, type, callback) {
         var the = this;
         var args = access.args(arguments);
+        var defaultButtonType = 'primary';
 
+        if (args.length === 2) {
+            if (typeis.Function(args[1])) {
+                callback = args[1];
+                type = defaultButtonType;
+            }
+        }
+
+        var id = sole();
+        callback = fun.ensure(callback);
+        the[_callbacksMap][id] = callback;
         the[_lastButtons].push({
-            type: 'button',
-            status: status || 'primary',
+            id: id,
+            category: 'button',
+            type: type || defaultButtonType,
             text: text
         });
         return the;
@@ -120,6 +133,10 @@ var Actions = Popup.extend({
         var html = tpl.render({groups: the[_groups]});
 
         Actions.parent.setHTML(the, html);
+        var btnEls = selector.query(btnClass, the.getElement());
+        array.each(btnEls, function (index, el) {
+            attribute.data(el, 'index', index);
+        });
 
         return the;
     },
@@ -137,9 +154,11 @@ var Actions = Popup.extend({
         Actions.parent.destroy(the, callback);
     }
 });
-var _options = Actions.sole();
-var _groups = Actions.sole();
-var _lastButtons = Actions.sole();
+var sole = Actions.sole;
+var _options = sole();
+var _groups = sole();
+var _lastButtons = sole();
+var _callbacksMap = sole();
 
 require('./style.css', 'css|style');
 Actions.defaults = defaults;
