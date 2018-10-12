@@ -55,7 +55,7 @@ var Actions = Popup.extend({
 
         // init event
 
-        event.on(the.getElement(), 'click', btnClass, function () {
+        event.on(the.getContainerEl(), 'click', btnClass, function () {
             var el = this;
             var index = attribute.data(el, 'index');
             var id = attribute.data(el, 'id');
@@ -133,8 +133,8 @@ var Actions = Popup.extend({
         var the = this;
         var html = tpl.render({groups: the[_groups]});
 
-        Actions.parent.setHTML(the, html);
-        var btnEls = selector.query(btnClass, the.getElement());
+        the.setHTML(html);
+        var btnEls = selector.query(btnClass, the.getContainerEl());
         array.each(btnEls, function (index, el) {
             attribute.data(el, 'index', index);
         });

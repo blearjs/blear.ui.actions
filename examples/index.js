@@ -8,11 +8,16 @@
 
 'use strict';
 
-var Loading = require('../src/index');
+var Actions = require('../src/index');
 
-var loading = new Loading();
+var actions = new Actions();
 
+actions
+    .group()
+    .text('一段文本')
+    .button('一个按钮', 'primary')
+    .render();
 
 document.getElementById('open').onclick = function () {
-    loading.open();
+    actions.open();
 };
