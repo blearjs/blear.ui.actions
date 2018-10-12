@@ -1,8 +1,13 @@
 <div class="blearui-actions">
-    <div class="blearui-actions-group" @for="i, group in groups">
-        <div @for="j, item in group" class="blearui-actions-group-item
+    {{#for i, group in groups}}
+    <div class="blearui-actions-group">
+        {{#for j, item in group}}
+        <div class="blearui-actions-group-item
         blearui-actions-group-item_{{item.category}}
         {{item.category == 'button' ? 'dkbtn dkbtn_' + item.type : ''}}
-        ">{{item.text}}</div>
+        ">{{=item.text}}
+        </div>
+        {{/for}}
     </div>
+    {{/for}}
 </div>
